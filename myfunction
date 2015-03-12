@@ -1,0 +1,4 @@
+myfunction = function(sampleSize,u,sigma){
+x=rnorm(sampleSize,u,sigma)
+return (x)   # must have a parentheses
+}

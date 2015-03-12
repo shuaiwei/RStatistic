@@ -1,0 +1,12 @@
+mydata=read.table("http://www.ces.clemson.edu/~cspark/course/8050/data/CH06PR15.txt")
+y=mydata[,1]
+x1=mydata[,2]
+x2=mydata[,3]
+x3=mydata[,4]
+
+colnames(mydata)=c("Saisfaction","Age","Severity","Anxiety")
+pairs(mydata,cex=0.5,pch=1) # the correlation graph between columns
+cor(mydata)
+LM=lm(y~x1+x2+x3)
+summary=(LM)
+anova(LM)

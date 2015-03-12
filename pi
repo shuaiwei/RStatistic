@@ -1,0 +1,23 @@
+#the size of sample is in Nvector
+Nvector=c(10,25,50,75,100,
+		 250,500,750,1000,
+		 2500,5000,7500,10000,
+		 25000,50000,75000,100000,
+		 250000,500000,750000,1000000)
+j=1
+piHat = 1:21 # initialization
+for (i in Nvector){
+	N = i  
+	R = 0.5   # side length ＝1; also diameter.
+	x = runif(N, min= -R, max= R) #generate random variables with uniform distribution
+	y = runif(N, min= -R, max= R)
+	ifInCircle = (x^2 + y^2) <= R^2 
+	# Constitute of True and Flase, 1(True):lying in the circle;0(Flase): Not lying in
+	piHat[j] = 4 * sum(ifInCircle) / N
+	j=j+1
+}
+
+plot(Nvector,piHat,"l",log="x",xlab="log(Nvector)",col="blue")
+abline(h=pi,lty=2,col="red")
+axis(side=2, at=seq(2, 4, by=0.1))
+legend("topright", bty="n",c("Estimate of pi","pi"),lwd=c(1.25,1.25),lty=c("solid","dashed"),col=c("blue","red"))

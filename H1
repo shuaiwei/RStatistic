@@ -1,0 +1,8 @@
+mydata=read.table("http://www.ces.clemson.edu/~cspark/course/8050/data/CH07TA01.txt")
+x1=mydata[,1]
+x2=mydata[,2]
+x3=mydata[,3]
+y=mydata[,4]
+LM1=lm(y~x1)
+summary(LM1)
+

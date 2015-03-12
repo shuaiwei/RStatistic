@@ -1,0 +1,4 @@
+source("http://www.ces.clemson.edu/~cspark/course/8050/data/CH14TA02.txt")
+lam=seq(-1,1,0.1)
+SSE=BoxCox(y~x1+x2+x3,lambda=lam,SSE=TRUE)
+plot(lam,SSE)

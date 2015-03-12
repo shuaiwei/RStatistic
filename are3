@@ -1,0 +1,86 @@
+rm(list = setdiff(ls(), lsf.str()))
+library(LaplacesDemon)
+
+n=c(100,1000,10000)
+iteration=1:1000
+seq1=seq(1:(3*1000))
+estimateError1=matrix(seq1,3)
+estimateError2=matrix(seq1,3)
+
+# F is norm distribution
+k=1
+
+VF1=c(0,0,0)
+VF2=c(0,0,0)
+
+for (i in n){
+	N=i*(i-1)/2.0
+	m=seq(1:N)
+	for(j in iteration){
+		l=1
+		x = rnorm(i)
+		m1=mean(x)
+		n1=1:(i-1)
+	m=hl.loc(x)#can also use hl.loc
+		m2=median(m)
+		estimateError1[k,j]=m1
+		estimateError2[k,j]=m2
+	}
+	VF1[k]=var(sqrt(i)*estimateError1[k,])
+	VF2[k]=var(sqrt(i)*estimateError2[k,])
+	k=k+1
+}
+
+result1=VF1/VF2
+
+# F is laplace distribution
+k=1
+
+VF1=c(0,0,0)
+VF2=c(0,0,0)
+
+for (i in n){
+	N=i*(i-1)/2.0
+	m=seq(1:N)
+	for(j in iteration){
+		l=1
+		x = rlaplace(i,0,1)
+		m1=mean(x)
+		n1=1:(i-1)
+		m=hl.loc(x)
+		m2=median(m)
+		estimateError1[k,j]=m1
+		estimateError2[k,j]=m2
+	}
+	VF1[k]=var(sqrt(i)*estimateError1[k,])
+	VF2[k]=var(sqrt(i)*estimateError2[k,])
+	k=k+1
+}
+
+result2=VF1/VF2
+
+# F is logistic distribution
+k=1
+
+VF1=c(0,0,0)
+VF2=c(0,0,0)
+
+for (i in n){
+	N=i*(i-1)/2.0
+	m=seq(1:N)
+	for(j in iteration){
+		l=1
+		x = rlogis(i,0,1)
+		m1=mean(x)
+		n1=1:(i-1)
+		m=hl.loc(x)
+		m2=median(m)
+		estimateError1[k,j]=m1
+		estimateError2[k,j]=m2
+	}
+	VF1[k]=var(sqrt(i)*estimateError1[k,])
+	VF2[k]=var(sqrt(i)*estimateError2[k,])
+	k=k+1
+}
+
+result3=VF1/VF2

@@ -1,0 +1,36 @@
+#Data=read.table("http://www.ces.clemson.edu/~cspark/course/8050/data/CH14TA02.txt")
+Data=matrix(rep(-1,8*4),8)
+Data[,1]=c(1.6907,1.7242,1.7552,1.7842,1.8113,1.8369,1.8610,1.8839)
+Data[,2]=c(59,60,62,56,63,59,62,60)
+Data[,3]=c(6,13,18,28,52,53,61,60)
+Data[,4]=c(0.101695,0.216667,0.290323,0.500000,0.825397,0.898305,0.983871,1.000000)
+
+x=Data[,1]
+n=Data[,2]
+y=Data[,3]
+p=Data[,4]
+
+yn=cbind(y,n-y)
+GLM=glm(yn~x,family=binomial("logit"))
+summary(GLM)
+
+fitted(GLM)
+pi.hat=predict(GLM,type="response",data.frame(xx=x))
+cbind(Data,pi.hat)
+plot(x,p,xlim=c(1.6,1.9),ylim=c(0,1))
+b=coef(GLM)
+curve(exp(b[1]+b[2]*x)/(1+exp(b[1]+b[2]*x)),1.6,1.9,add=TRUE)
+
+#compute X^2
+O=y
+E=(pi.hat)*n
+ss0=(O-E)^2/E
+
+O=n-y
+E=(1-pi.hat)*n
+ss1=(O-E)^2/E
+XSquare=sum(ss0+ss1) #X^2=XSquare
+
+
+
+

@@ -1,0 +1,19 @@
+require(plotrix)
+require(grid)
+plot(c(-0.5, 0.5), c(-0.5,0.5), type = "n",asp=1)
+#plot.new()
+rect( -0.5, -0.5, 0.5, 0.5) 
+draw.circle(0,0,.5)
+
+j=1
+N = 1000  
+R = 1   # side length ＝1; also diameter.
+x = runif(N, min= -R/2.0, max= R/2.0) #generate random variables with uniform distribution
+y = runif(N, min= -R/2.0, max= R/2.0)
+ifInCircle = (x^2 + y^2) <= (R/2)^2 
+# Constitute of True and Flase, 1(True):lying in the circle;0(Flase): Not lying in
+piHat[j] = 4 * sum(ifInCircle) / N
+
+
+points(x[ ifInCircle], y[ ifInCircle], pch = '.', col = "blue")
+points(x[!ifInCircle], y[!ifInCircle], pch = '.', col = "red")

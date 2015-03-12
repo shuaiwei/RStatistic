@@ -1,0 +1,14 @@
+mydata=read.table("http://www.ces.clemson.edu/~cspark/course/8050/data/CH07TA01.txt")
+
+X=cbind(1,mydata[,1])
+n=length(mydata[,1])
+Y=mydata[,4];
+yHat = X %*% solve(t(X) %*%X ) %*% t(X) %*%Y 
+beta = solve(t(X) %*%X ) %*% t(X) %*%Y 
+mse=sum((Y-yHat)^2)/(n-2)
+SeBeta=sqrt(diag(mse*solve(t(X) %*%X )))
+T0=(beta[1]-0)/SeBeta[1]
+T1=(beta[2]-0)/SeBeta[2]
+pvalue0=2*(1-pt(-T0,18))
+pvalue1=2*(1-pt(T1,18))
+pvalue1
